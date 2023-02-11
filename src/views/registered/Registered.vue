@@ -46,6 +46,17 @@
           <el-input v-model="sizeForm.name"></el-input>
         </el-form-item>
         <el-form-item
+          label="姓名"
+          v-if="sizeForm.type == '3' || sizeForm.type == '1'"
+          prop="sex"
+        >
+          <el-radio-group v-model="sizeForm.sex">
+            <el-radio label="1">男</el-radio>
+            <el-radio label="0">女</el-radio>
+          </el-radio-group>
+        </el-form-item>
+
+        <el-form-item
           label="电话"
           v-if="
             sizeForm.type == '2' || sizeForm.type == '3' || sizeForm.type == '1'
@@ -66,6 +77,7 @@
             >立即注册</el-button
           >
           <el-button size="mini" @click="resetForm('sizeForm')">重置</el-button>
+          <el-button size="mini" @click="login()">返回登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -91,6 +103,7 @@ export default {
       sizeForm: {
         enterpriseName: '', //企业名称
         name: '', //企业招聘负责人或者管理员姓名或者学生姓名
+        sex: '', //性别
         class: '', //学生班级
         region: '', //企业地址
         type: '1', //用户类型
@@ -102,6 +115,7 @@ export default {
         ],
         class: [{ required: true, message: '请输入班级', trigger: 'blur' }],
         name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
+        sex: [{ required: true, message: '请选择性别', trigger: 'change' }],
         phone: [{ required: true, validator: checkphone, trigger: 'blur' }],
         region: [
           { required: true, message: '请输入所在企业地址', trigger: 'blur' },
@@ -111,6 +125,10 @@ export default {
   },
   components: {},
   methods: {
+    // 返回登录页
+    login() {
+      this.$router.push('/login')
+    },
     changeType() {
       this.resetForm('sizeForm')
     },
@@ -130,6 +148,7 @@ export default {
             .then((res) => {
               if (res.data.status == 1) {
                 that.$message.success(res.data.msg)
+                that.$router.push('/login')
               } else {
                 that.$message.error(res.data.msg)
               }

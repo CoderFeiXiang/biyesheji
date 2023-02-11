@@ -1,6 +1,21 @@
 <template>
   <div>
     <navbar />
+    <div style="position: relative">
+      <div style="position: absolute; top: 0; left: 42%; color: #faae00">
+        公告：
+      </div>
+      <div class="shuffling">
+        <div
+          :class="{ anim: isRoll === true }"
+          v-for="(item, index) in contentData"
+          :key="index"
+          @click="lookShuffling(contentData)"
+        >
+          {{ item }}
+        </div>
+      </div>
+    </div>
     <!-- <template slot="upload">
         <el-upload
           class="upload-demo"
@@ -23,8 +38,12 @@
     <div class="content">
       <div class="title">
         <div v-for="(item, index) in titleContent" :key="index">
-          <span style="cursor: pointer; padding-bottom: 5px" :class="{ curr: active == index }"
-            @click="getTitle(item, index)">{{ item }}</span>
+          <span
+            style="cursor: pointer; padding-bottom: 5px"
+            :class="{ curr: active == index }"
+            @click="getTitle(item, index)"
+            >{{ item }}</span
+          >
         </div>
       </div>
       <div class="details">
@@ -41,12 +60,14 @@
                   </div>
                   <p style="margin-left: auto; color: #fd7240">18-35K</p>
                 </div>
-                <p style="
+                <p
+                  style="
                     color: #8d92a1;
                     font-size: 13px;
                     margin-left: 18px;
                     margin-top: 5px;
-                  ">
+                  "
+                >
                   武汉 |
                   <span style="margin: 0 5px">经验不限</span>
                   <span style="margin-left: 5px">
@@ -78,13 +99,18 @@
 </template>
 
 <script>
-import { stuData } from '@/api/request.js'
-
 import navbar from '@/components/navbar.vue'
 import searchbox from '@/components/searchbox.vue'
 export default {
-  data () {
+  data() {
     return {
+      isRoll: false,
+      contentData: [
+        '荆州学院最新就业政策',
+        '荆州人才引进计划',
+        '关于华为来我校举行招聘会相关信息',
+        '六月招聘会',
+      ],
       type: null,
       username: '',
       IT_Deatils: [], //默认展示IT信息
@@ -125,7 +151,10 @@ export default {
     navbar,
     searchbox,
   },
-  created () {
+  mounted() {
+    setInterval(this.scroll, 2000)
+  },
+  created() {
     window.scrollTo({
       top: 0,
     })
@@ -133,7 +162,17 @@ export default {
     // this.username = sessionStorage.getItem('username')
   },
   methods: {
-    getItemDetail (item) {
+    //查看就业政策
+    lookShuffling(data) {},
+    scroll() {
+      this.isRoll = true
+      setTimeout(() => {
+        this.contentData.push(this.contentData[0])
+        this.contentData.shift()
+        this.isRoll = false
+      }, 500)
+    },
+    getItemDetail(item) {
       let that = this
       this.$router.push({
         path: '/detail',
@@ -143,25 +182,23 @@ export default {
         },
       })
     },
-    getStudent () {
-      stuData().then().catch()
-    },
-    handleRemove (file, fileList) {
+    handleRemove(file, fileList) {
       console.log(file, fileList)
     },
-    handlePreview (file) {
+    handlePreview(file) {
       console.log(file)
     },
-    handleExceed (files, fileList) {
+    handleExceed(files, fileList) {
       this.$message.warning(
-        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length
+        `当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
+          files.length + fileList.length
         } 个文件`
       )
     },
-    beforeRemove (file, fileList) {
+    beforeRemove(file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`)
     },
-    getTitle (detail, number) {
+    getTitle(detail, number) {
       this.active = number
       console.log(detail)
     },
@@ -170,6 +207,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.shuffling {
+  position: absolute;
+  top: 0;
+  left: 45%;
+  cursor: pointer;
+  color: #faae00;
+  text-align: left;
+  height: 20px;
+  overflow: hidden;
+}
 ul {
   list-style: none;
 }

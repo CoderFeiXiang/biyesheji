@@ -4,14 +4,8 @@
       <el-input
         size="mini"
         style="width: 180px"
-        v-model="search.userId"
-        placeholder="请输入账号"
-      />
-      <el-input
-        size="mini"
-        style="width: 180px; margin: 0 10px"
         v-model="search.name"
-        placeholder="请输入名字"
+        placeholder="请输入申请人"
       />
       <el-input
         size="mini"
@@ -20,13 +14,14 @@
         placeholder="请输入电话"
       />
       <el-select
+        style="margin: 0 10px"
         size="mini"
-        style="width: 180px; margin: 0 10px"
-        v-model="search.states"
-        placeholder="请选择帐号状态"
+        v-model="search.type"
+        placeholder="请选择申请类型"
       >
-        <el-option label="可用" value="1"> </el-option>
-        <el-option label="不可用" value="0"> </el-option>
+        <el-option label="企业" value="2"> </el-option>
+        <el-option label="学生" value="3"> </el-option>
+        <el-option label="管理员" value="1"> </el-option>
       </el-select>
       <el-button
         size="mini"
@@ -54,32 +49,38 @@
         :data="tableData"
       >
         <vxe-column type="seq" title="序号" width="60" />
-        <vxe-column field="userId" title="账号" />
-        <vxe-column field="name" title="名字" />
-        <vxe-column field="phone" title="电话" />
-        <vxe-column title="状态">
+        <vxe-column field="name" title="申请人" />
+        <vxe-column title="企业名称(班级)">
           <template #default="{ row }">
-            <el-switch
-              v-model="row.states"
-              active-color="#13ce66"
-              inactive-color="#ff4949"
-              active-text="可用"
-              inactive-text="不可用"
-              active-value="1"
-              inactive-value="0"
-              disabled
-            />
+            <span v-if="row.enterpriseName != ''">{{
+              row.enterpriseName
+            }}</span>
+            <span v-else>{{ row.class }}</span>
           </template>
         </vxe-column>
+        <vxe-column field="type" title="用户类型">
+          <template #default="{ row }">
+            {{
+              row.type == 1
+                ? '管理员'
+                : row.type == 2
+                ? '企业'
+                : row.type == 3
+                ? '毕业生'
+                : ''
+            }}
+          </template>
+        </vxe-column>
+        <vxe-column field="phone" title="电话" />
         <vxe-column title="操作">
           <template #default="{ row }">
-            <vxe-button content="编辑" @click="editUser(row)"></vxe-button>
-            <vxe-button content="删除"></vxe-button>
+            <vxe-button content="查看" @click="editUser(row)"></vxe-button>
+            <vxe-button content="拒绝"></vxe-button>
           </template>
         </vxe-column>
       </vxe-table>
     </div>
-    <el-dialog title="修改" :visible.sync="dialogVisible" width="30%">
+    <el-dialog title="信息" :visible.sync="dialogVisible" width="30%">
       <el-form
         label-position="left"
         ref="form"
@@ -100,7 +101,7 @@
           <el-input v-model="sizeForm.phone"></el-input>
         </el-form-item>
         <el-form-item label="用户类型">
-          <el-select v-model="sizeForm.userType" placeholder="请选择用户类型">
+          <el-select v-model="sizeForm.type" placeholder="请选择用户类型">
             <el-option label="毕业生" value="3"></el-option>
             <el-option label="招聘人员" value="2"></el-option>
             <el-option label="管理员" value="1"></el-option>
@@ -118,19 +119,17 @@
 </template>
 
 <script>
-import { userData } from '@/api/request'
+import { applicationForm } from '@/api/request'
 export default {
   data() {
     return {
-      dialogVisible: false,
-      input: '',
       search: {
-        userId: '',
         name: '',
         phone: '',
-        type: 1,
-        states: '',
+        type: '',
       },
+      dialogVisible: false,
+      input: '',
       sizeForm: {
         account: '',
         name: '',
@@ -142,36 +141,33 @@ export default {
   },
   components: {},
   created() {
-    this.getAdmin(this.search)
+    this.getApplicationForm(this.search)
   },
   methods: {
+    // 搜索
+    searchData() {
+      this.getApplicationForm(this.search)
+    },
     // 重置
     clearSearch() {
       this.search = {
-        userId: '',
         name: '',
         phone: '',
-        type: 1,
-        states: '',
+        type: '',
       }
-      this.getAdmin(this.search)
+      this.getApplicationForm(this.search)
     },
-    // 搜索
-    searchData() {
-      this.getAdmin(this.search)
+    // 获取申请注册列表
+    getApplicationForm(search) {
+      applicationForm(search)
+        .then((res) => {
+          this.tableData = res.data.data
+        })
+        .catch((err) => {})
     },
     editUser(row) {
       this.dialogVisible = true
       this.sizeForm = row
-    },
-    getAdmin(search) {
-      userData(search)
-        .then((res) => {
-          if (res.data.status == 1) {
-            this.tableData = res.data.data
-          }
-        })
-        .catch((err) => {})
     },
   },
 }

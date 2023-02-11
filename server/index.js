@@ -22,7 +22,7 @@ app.use('/api/*', function (req, res, next) {
 app.use(express.json()) // 以json格式返回出去
 app.use(express.urlencoded({ extended: false }))
 // app.use(bodyParser.urlencoded({ extended: false }))
-// // 处理json格式的参数
+// 处理json格式的参数
 // app.use(bodyParser.json())
 
 // 配置路由

@@ -7,36 +7,47 @@
           <div class="inner home-inner">
             <div style="margin: 0 80px; display: flex">
               <div style="width: 70%">
-                <div style="
+                <div
+                  style="
                     color: rgba(255, 255, 255, 0.7);
                     font-size: 14px;
                     line-height: 20px;
                     height: 20px;
-                  ">
+                  "
+                >
                   招聘中
                 </div>
                 <div class="name">
-                  <h1 title="高级地图数据产品经理">高级地图数据产品经理</h1>
-                  <span class="salary">22-30K</span>
+                  <h1 title="高级地图数据产品经理">web前端开发助理双休+五险</h1>
+                  <span class="salary">4k-6k·13薪</span>
                 </div>
                 <p>
-                  <em>武汉</em>
+                  <em>成都</em>
                   <el-divider direction="vertical" />
-                  <em>3-5年</em>
+                  <em>经验不限</em>
                   <el-divider direction="vertical" />
-                  <em>本科</em>
+                  <em>大专及以上</em>
                 </p>
                 <p v-show="type == '3'">
-                  <el-button style="
+                  <el-button
+                    style="
                       background-color: #00d8cb;
                       border: 1px solid #00d8cb;
                       color: #fff;
-                    ">投递简历</el-button>
+                    "
+                    >投递简历</el-button
+                  >
                 </p>
               </div>
               <div class="tag-container-new">
-                <el-tag style="margin: 5px" class="tagText" v-for="item in employeeBenefits" :key="item" :type="item"
-                  effect="plain">
+                <el-tag
+                  style="margin: 5px"
+                  class="tagText"
+                  v-for="item in employeeBenefits"
+                  :key="item"
+                  :type="item"
+                  effect="plain"
+                >
                   {{ item }}
                 </el-tag>
               </div>
@@ -57,16 +68,25 @@
                 </div>
                 <!-- <div>感兴趣</div> -->
                 <p v-show="type == '3'">
-                  <el-button style="
+                  <el-button
+                    style="
                       background-color: #00d8cb;
                       border: 1px solid #00d8cb;
                       color: #fff;
-                    ">投递简历</el-button>
+                    "
+                    >投递简历</el-button
+                  >
                 </p>
               </div>
               <div class="tag-container-new">
-                <el-tag style="margin: 5px" class="tagText" v-for="item in employeeBenefits" :key="item" :type="item"
-                  effect="plain">
+                <el-tag
+                  style="margin: 5px"
+                  class="tagText"
+                  v-for="item in employeeBenefits"
+                  :key="item"
+                  :type="item"
+                  effect="plain"
+                >
                   {{ item }}
                 </el-tag>
               </div>
@@ -81,7 +101,8 @@
           <div class="detail-figure">
             <img
               src="https://img.bosszhipin.com/beijin/upload/avatar/20220301/607f1f3d68754fd0c5f97b479fc7ce684400f869c20e0ee3662e01a0c6f3699f6026eed81122daae_s.png?x-oss-process=image/resize,w_100,limit_0"
-              alt />
+              alt
+            />
           </div>
           <h2 class="name">
             陈俞桦
@@ -94,22 +115,38 @@
             <h3>职位描述</h3>
             <div class="text">
               【岗位职责】：
-              <p v-for="item in 3" :key="item">{{ item }}</p>
-              【岗位职责】：
-              <p v-for="item in 3" :key="item">{{ item }}</p>
+              <p v-for="(item, index) in zhize" :key="index">
+                {{ index + 1 }}{{ item }}
+              </p>
+              【招聘要求】：
+              <p v-for="(item, index) in yaoqiu" :key="index">
+                {{ index + 1 }}{{ item }}
+              </p>
               <h3>公司介绍</h3>
               <div class="text fold-text"></div>
               <h3>工商信息</h3>
               <el-descriptions title="常相伴（武汉）科技有限公司">
-                <el-descriptions-item label="法定代表人：">kooriookami</el-descriptions-item>
-                <el-descriptions-item label="注册资金：">18100000000</el-descriptions-item>
-                <el-descriptions-item label="成立日期：">苏州市</el-descriptions-item>
+                <el-descriptions-item label="法定代表人："
+                  >kooriookami</el-descriptions-item
+                >
+                <el-descriptions-item label="注册资金："
+                  >18100000000</el-descriptions-item
+                >
+                <el-descriptions-item label="成立日期："
+                  >苏州市</el-descriptions-item
+                >
                 <el-descriptions-item label="企业类型：">
                   <el-tag size="small">学校</el-tag>
                 </el-descriptions-item>
-                <el-descriptions-item label="经营状态：">江苏省苏州市吴中区吴中大道 1188 号</el-descriptions-item>
+                <el-descriptions-item label="经营状态："
+                  >江苏省苏州市吴中区吴中大道 1188 号</el-descriptions-item
+                >
               </el-descriptions>
-              <a style="float: right; margin: -40px 20px 0 0; color: #5dd5c8" href="javaScript:;">查看全部</a>
+              <a
+                style="float: right; margin: -40px 20px 0 0; color: #5dd5c8"
+                href="javaScript:;"
+                >查看全部</a
+              >
               <h3>工作地址</h3>
             </div>
           </div>
@@ -122,7 +159,8 @@
             <a href="javaScript:;" title="伴伴">
               <img
                 src="https://img.bosszhipin.com/beijin/upload/com/workfeel/20210922/7bf6f160950405e94c64067da096b4e193c7ab264afdbfc373ebbcb0f9fe16aebc98317da336d322.jpg?x-oss-process=image/resize,w_120,limit_0"
-                alt />
+                alt
+              />
             </a>
             <a style="color: " href="javaScript:;" title="伴伴招聘"> 伴伴 </a>
           </div>
@@ -147,7 +185,7 @@
 <script>
 import navbar from '@/components/navbar'
 export default {
-  data () {
+  data() {
     return {
       employeeBenefits: [
         '节日福利',
@@ -158,30 +196,41 @@ export default {
         '定期体检',
       ], //员工福利
       boxshow: false,
+      zhize: [
+        '协助Web前端工程师完成项目技术辅助工作',
+        '协助前端工程师完成公司网站、专题、微信、微博、活动及相关产品功能实现培养机制：在成熟的运营管理机制下，为所有在职人员提供系统化的入职培训',
+      ],
+      yaoqiu: [
+        '大专及以上学历',
+        '理工科、计算机相关专业、设计、物理、数学应用数学等相关专业毕业生优先',
+        '20-30岁，有一定的审美能力，具备良好的学习能力、沟通能力，有较好的综合素质',
+        '对IT、互联网行业感兴趣，并且以后想进入该行业',
+        '了解PS、AI、Coreldraw、Indesign、CAD软件者优先考虑',
+      ],
       type: '',
     }
   },
   components: { navbar },
-  created () {
+  created() {
     this.listenerFunction()
     window.scrollTo({
       top: 0,
     })
     this.type = sessionStorage.getItem('type')
   },
-  beforeDestroy () {
+  beforeDestroy() {
     document.removeEventListener('scroll', this.listenerFunction)
   },
-  mounted () { },
+  mounted() {},
   methods: {
-    togglebox () {
+    togglebox() {
       this.boxshow = true
       document.getElementById('box').style.display = 'none'
     },
-    listenerFunction (e) {
+    listenerFunction(e) {
       document.addEventListener('scroll', this.handleScroll, true)
     },
-    handleScroll () {
+    handleScroll() {
       if (window.pageYOffset >= 288 && this.boxshow == false) {
         this.togglebox()
       }
@@ -247,7 +296,7 @@ a {
       line-height: 45px;
       vertical-align: middle;
       font-size: 32px;
-      max-width: 380px;
+      max-width: 420px;
       white-space: nowrap;
       text-overflow: ellipsis;
       display: inline-block;

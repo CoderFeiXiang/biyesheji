@@ -3,19 +3,24 @@
     <div class="header">
       <div class="logo">
         {{
-          ($route.query.type == '1' || type == '1')
+          $route.query.type == '1' || type == '1'
             ? '管理员'
-            : ($route.query.type == '2'|| type == '2')
+            : $route.query.type == '2' || type == '2'
             ? 'HR'
-            : ($route.query.type == '3' || type == '3')
-            ? '同学'
+            : $route.query.type == '3' || type == '3'
+            ? '小骆同学'
             : ''
         }},你好
       </div>
       <div class="city"></div>
       <div class="nav">
         <ul>
-          <li @click="itemClick(item)" class="item" v-for="(item, index) in navData" :key="index">
+          <li
+            @click="itemClick(item)"
+            class="item"
+            v-for="(item, index) in navData"
+            :key="index"
+          >
             {{ item }}
           </li>
         </ul>
@@ -24,32 +29,67 @@
         <div class="btns">
           <slot name="upload"></slot>
           <div class="search">
-            <el-input v-if="$route.path == '/detail'" class="sear" size="small" placeholder="搜索职位、公司"
-              v-model="searchPosition">
-              <i @click="searchPost" slot="suffix" class="el-input__icon el-icon-search"></i>
+            <el-input
+              v-if="$route.path == '/detail'"
+              class="sear"
+              size="small"
+              placeholder="搜索职位、公司"
+              v-model="searchPosition"
+            >
+              <i
+                @click="searchPost"
+                slot="suffix"
+                class="el-input__icon el-icon-search"
+              ></i>
             </el-input>
           </div>
           <div>
-            <el-link @click="managementInformation($route.query.id, $route.query.type)"
-              v-if="$route.query.type == '1' || type == '1'" :underline="false" style="color: #fff; font-size: 16px">
+            <el-link
+              @click="managementInformation($route.query.id, $route.query.type)"
+              v-if="$route.query.type == '1' || type == '1'"
+              :underline="false"
+              style="color: #fff; font-size: 16px"
+            >
               信息管理
             </el-link>
-            <el-link v-if="$route.query.type == '2' || type == '2'" :underline="false"
-              @click="recruitment($route.query.id, $route.query.type)" style="color: #fff; font-size: 16px">我要招聘
+            <el-link
+              v-if="$route.query.type == '2' || type == '2'"
+              :underline="false"
+              @click="recruitment($route.query.id, $route.query.type)"
+              style="color: #fff; font-size: 16px"
+              >我要招聘
             </el-link>
-            <el-link v-if="$route.query.type == '2' || type == '2'" :underline="false"
+            <el-link
+              v-if="$route.query.type == '2' || type == '2'"
+              :underline="false"
               @click="resumesReceived($route.query.id, $route.query.type)"
-              style="color: #fff; font-size: 16px; margin-left: 30px">收到简历</el-link>
-            <el-link @click="myResume($route.query.id, $route.query.type)"
-              v-if="$route.query.type == '3' || type == '3'" :underline="false" style="color: #fff; font-size: 16px">
-              我的简历</el-link>
+              style="color: #fff; font-size: 16px; margin-left: 30px"
+              >收到简历</el-link
+            >
+            <el-link
+              @click="myResume($route.query.id, $route.query.type)"
+              v-if="$route.query.type == '3' || type == '3'"
+              :underline="false"
+              style="color: #fff; font-size: 16px"
+            >
+              我的简历</el-link
+            >
           </div>
           <slot name="xinxi"></slot>
-
         </div>
       </div>
-      <div style="height:49px;line-height:49px;color: #fff; font-size: 16px;margin-left:11%;cursor: pointer;"
-        @click="logOut">退出
+      <div
+        style="
+          height: 49px;
+          line-height: 49px;
+          color: #fff;
+          font-size: 16px;
+          margin-left: 11%;
+          cursor: pointer;
+        "
+        @click="logOut"
+      >
+        退出
       </div>
     </div>
   </div>
@@ -57,7 +97,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       navData: ['首页', '职位', '校园', '公司', '资讯', '发现'],
       searchPosition: '',
@@ -65,12 +105,12 @@ export default {
     }
   },
   components: {},
-  created () {
+  created() {
     this.type = sessionStorage.getItem('type')
   },
   methods: {
     // 招聘人员-》收到简历界面
-    resumesReceived (id, type) {
+    resumesReceived(id, type) {
       this.$router.push({
         path: '/resumesReceived',
         query: {
@@ -80,7 +120,7 @@ export default {
       })
     },
     // 招聘人员-》我要招聘界面
-    recruitment (id, type) {
+    recruitment(id, type) {
       this.$router.push({
         path: '/recruitment',
         query: {
@@ -90,11 +130,11 @@ export default {
       })
     },
     // 退出登录
-    logOut () {
+    logOut() {
       sessionStorage.clear()
       this.$router.push('/login')
     },
-    itemClick (item) {
+    itemClick(item) {
       if (item == '校园') {
         window.location.href = 'https://www.jzxy.net.cn/'
       }
@@ -103,16 +143,16 @@ export default {
           path: '/home',
           query: {
             id: sessionStorage.getItem('id'),
-            type: sessionStorage.getItem('type')
+            type: sessionStorage.getItem('type'),
           },
         })
       }
     },
-    searchPost () {
+    searchPost() {
       alert('搜索')
     },
     // 管理员--》信息管理
-    managementInformation (id, type) {
+    managementInformation(id, type) {
       this.$router.push({
         path: '/A-Business/A-Business',
         query: {
@@ -121,7 +161,7 @@ export default {
         },
       })
     },
-    myResume (id, type) {
+    myResume(id, type) {
       this.$router.push({
         path: '/resume',
         query: {
@@ -169,7 +209,7 @@ a {
   border: 1px solid transparent;
   .logo {
     display: block;
-    width: 150px;
+    // width: 180px;
     height: 36px;
     line-height: 36px;
     margin: 5px;
